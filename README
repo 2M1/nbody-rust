@@ -1,0 +1,11 @@
+# NBody Simulation in rust
+
+This is a (currently) simple NBody simulation written in rust.
+
+## Usage
+
+You can run the simulation with `cargo run --release -- coordinatesfile.csv`.
+
+This repository contains some sample coordinates files in `examples/`, if you want to generate your own custom coordinates, you can use the `generate_coordinates.py` script.
+
+##
