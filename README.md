@@ -16,15 +16,15 @@ This is a project I started to learn rust. I'll try to gradually go from a simpl
 
 ### Sequential (Single Threaded)
 
--   []: Add reasonable units to the simulation
--   []: command line arguments for the simulation / interface for parameters
--   []: Zoom in / out with the mouse
+-   [ ] Add reasonable units to the simulation
+-   [ ] command line arguments for the simulation / interface for parameters
+-   [ ] Zoom in / out with the mouse
 
 ### Multithreaded
 
--   []: Add multithreading :)
+-   [ ] Add multithreading :)
 
 ### OpenMPI
 
--   []: Figure out how to use OpenMPI in rust
--   []: implement OpenMPI version
+-   [ ] Figure out how to use OpenMPI in rust
+-   [ ] implement OpenMPI version
