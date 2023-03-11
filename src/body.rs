@@ -7,12 +7,12 @@ use std::{
     str::FromStr,
 };
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, PartialOrd)]
 pub struct Body<T: Vector> {
     pub position: T,
-    velocity: T,
-    acceleration: T,
-    mass: f64,
+    pub velocity: T,
+    pub acceleration: T,
+    pub mass: f64,
 }
 
 impl Body<Vector2D> {
@@ -28,11 +28,6 @@ impl Body<Vector2D> {
             acceleration: acceleration,
             mass: mass,
         }
-    }
-
-    pub fn update(&mut self, dt: f64) {
-        self.velocity = self.velocity.add(&self.acceleration);
-        self.position = self.position.add(&self.velocity);
     }
 
     pub fn from_file(path: &Path) -> Result<Vec<Body<Vector2D>>, String> {

@@ -2,7 +2,7 @@ use std::{thread, time::Duration};
 
 use sdl2::{
     self, event::Event, image::SaveSurface, pixels::Color, rect::Point, render::Canvas,
-    surface::Surface, video::Window, Error, EventPump,
+    surface::Surface, video::Window, EventPump,
 };
 
 use crate::{body::Body, vector::Vector2D};
@@ -71,18 +71,20 @@ impl GraphicsContext {
         }
     }
 
-    pub fn renderBodies(&mut self, bodies: &Vec<Body<Vector2D>>) -> Result<(), String> {
+    pub fn render_bodies(&mut self, bodies: &Vec<Body<Vector2D>>) -> Result<(), String> {
         self.canvas.present();
         self.canvas.clear();
 
+        let y_axis_zero = self.canvas.viewport().height() as f64 / 2.0;
+        let x_axis_zero = self.canvas.viewport().width() as f64 / 2.0;
+
         self.canvas.set_draw_color(Color::RGB(255, 255, 255));
         for body in bodies {
-            let x = (body.position.x + (self.canvas.viewport().width() as f64 / 2.0));
-            let y = (body.position.y + (self.canvas.viewport().height() as f64 / 2.0));
+            let x = body.position.x + x_axis_zero;
+            let y = body.position.y + y_axis_zero;
 
             let x = x as i32;
             let y = y as i32;
-            println!("rendering at {}, {}", x, y);
 
             self.canvas
                 .draw_point(Point::new(x, y))
