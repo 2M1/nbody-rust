@@ -24,10 +24,9 @@ PATTERN_MAP: Dict[str, PATTERN_T] = {}
 
 
 def pattern_mapping(map: Dict[str, PATTERN_T]):
-
     def wrapper(func: PATTERN_T):
         nonlocal map
-        pattern_name = func.__name__.replace('generate_', '')
+        pattern_name = func.__name__.replace("generate_", "")
         map[pattern_name] = func
         return func
 
@@ -46,7 +45,6 @@ def speed_clump() -> PATTERN_GENERATOR_T:
 
 @pattern_mapping(PATTERN_MAP)
 def generate_random() -> PATTERN_GENERATOR_T:
-
     for _ in range(N):
         x = random.randint(-RANGE_X, RANGE_X)
         y = random.randint(-RANGE_Y, RANGE_Y)
@@ -59,15 +57,15 @@ def generate_square() -> PATTERN_GENERATOR_T:
         quadrant = random.randint(1, 4)
         if quadrant == 1:
             x = random.randint(LOWER_X, UPPER_X)
-            y = random.randint(UPPER_Y-DQUADRANT, UPPER_Y)
+            y = random.randint(UPPER_Y - DQUADRANT, UPPER_Y)
         elif quadrant == 2:
-            x = random.randint(UPPER_X-DQUADRANT, UPPER_X)
+            x = random.randint(UPPER_X - DQUADRANT, UPPER_X)
             y = random.randint(LOWER_Y, UPPER_Y)
         elif quadrant == 3:
             x = random.randint(LOWER_X, UPPER_X)
-            y = random.randint(LOWER_Y, LOWER_Y+DQUADRANT)
+            y = random.randint(LOWER_Y, LOWER_Y + DQUADRANT)
         elif quadrant == 4:
-            x = random.randint(LOWER_X, LOWER_X+DQUADRANT)
+            x = random.randint(LOWER_X, LOWER_X + DQUADRANT)
             y = random.randint(LOWER_Y, UPPER_Y)
         yield (x, y, 0, 0)
 
@@ -80,12 +78,12 @@ def help():
 def main():
     args = sys.argv[1:]
 
-    if len(args) == 1 and args[0] == 'help' or len(args) not in [1,2]:
+    if len(args) == 1 and args[0] == "help" or len(args) not in [1, 2]:
         help()
         return
 
-    mode = 'random' if len(args) == 1 else args[0]
-    output_file = args[-1] # last argument (even if mode is not specified)
+    mode = "random" if len(args) == 1 else args[0]
+    output_file = args[-1]  # last argument (even if mode is not specified)
 
     if mode not in PATTERN_MAP:
         help()
@@ -93,12 +91,11 @@ def main():
 
     pattern = PATTERN_MAP[mode]
 
-    with open(output_file, 'w') as f:
-
-        for x,y,vx,vy in pattern():
+    with open(output_file, "w") as f:
+        for x, y, vx, vy in pattern():
             weight = random.randint(WEIGHT_MIN, DWEIGHT)
             f.write(f"{x},{y},{vx},{vy},{weight}\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

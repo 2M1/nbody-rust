@@ -1,6 +1,9 @@
-use std::ops::{Add, AddAssign, Div, Mul, MulAssign, Sub};
+use std::{
+    fmt::{Debug, Formatter},
+    ops::{Add, AddAssign, Div, Mul, MulAssign, Sub},
+};
 
-#[derive(Debug, Clone, Copy, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, PartialEq, PartialOrd)]
 pub struct Vector2D {
     pub x: f64,
     pub y: f64,
@@ -18,6 +21,12 @@ pub trait Vector: AddAssign<Self> + Sized + Copy {
     ///
     /// This is useful for futher uses in calculations where the distance would be squared again.
     fn distance_squared(&self, other: &Self, softening: f64) -> f64;
+}
+
+impl Debug for Vector2D {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
 }
 
 impl AddAssign<Vector2D> for Vector2D {
