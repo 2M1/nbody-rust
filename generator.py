@@ -13,7 +13,7 @@ UPPER_Y = 100
 LOWER_Y = -100
 DQUADRANT = 10
 
-DWEIGHT = 1000
+DWEIGHT = 100
 WEIGHT_MIN = 100
 N = 1000
 V_MAX = 100
@@ -38,8 +38,8 @@ def speed_clump() -> PATTERN_GENERATOR_T:
     for _ in range(N):
         x = random.randint(-DQUADRANT, DQUADRANT)
         y = random.randint(-DQUADRANT, DQUADRANT)
-        vx = random.random() * (V_MAX * 2) - V_MAX
-        vy = random.random() * (V_MAX * 2) - V_MAX
+        vx = int(random.random() * (V_MAX * 2) - V_MAX)
+        vy = int(random.random() * (V_MAX * 2) - V_MAX)
         yield x, y, vx, vy
 
 

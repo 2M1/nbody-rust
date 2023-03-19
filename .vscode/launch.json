@@ -19,7 +19,11 @@
                     "kind": "bin"
                 }
             },
-            "args": [],
+            "args": [
+                "./examples/random.csv",
+                "--save-path",
+                "./img"
+            ],
             "cwd": "${workspaceFolder}"
         },
         {

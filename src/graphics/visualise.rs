@@ -49,7 +49,7 @@ impl GraphicsContext {
         canvas.clear();
 
         return Ok(GraphicsContext {
-            canvas: canvas,
+            canvas,
             context: sdl_context,
             event_pump: eventpump,
             zoom: 1.0,
@@ -71,20 +71,24 @@ impl GraphicsContext {
         }
     }
 
-    pub fn render_bodies(&mut self, bodies: &Vec<Body<Vector2D>>) -> Result<(), String> {
+    pub fn render_bodies(
+        &mut self,
+        bodies: &Vec<Body<Vector2D>>,
+        meters_per_pixel: f64,
+    ) -> Result<(), String> {
         self.canvas.present();
         self.canvas.clear();
 
-        let y_axis_zero = self.canvas.viewport().height() as f64 / 2.0;
-        let x_axis_zero = self.canvas.viewport().width() as f64 / 2.0;
+        let y_axis_zero = (self.canvas.viewport().height() / 2) as i32;
+        let x_axis_zero = (self.canvas.viewport().width() / 2) as i32;
 
         self.canvas.set_draw_color(Color::RGB(255, 255, 255));
         for body in bodies {
-            let x = body.position.x + x_axis_zero;
-            let y = body.position.y + y_axis_zero;
+            let x = body.position.x / meters_per_pixel;
+            let y = body.position.y / meters_per_pixel;
 
-            let x = x as i32;
-            let y = y as i32;
+            let x = (x * self.zoom) as i32 + x_axis_zero;
+            let y = (y * self.zoom) as i32 + y_axis_zero;
 
             self.canvas
                 .draw_point(Point::new(x, y))
@@ -95,8 +99,9 @@ impl GraphicsContext {
         return Ok(());
     }
 
-    pub fn zoom(&mut self, zoom: f64) {
-        self.zoom = zoom;
+    pub fn zoom_inc(&mut self, zoom: f64) {
+        self.zoom += zoom;
+        // println!("new zoom: {}", self.zoom);
     }
 
     pub fn save_image(&mut self, path: &str, number: i64) -> Result<(), String> {
